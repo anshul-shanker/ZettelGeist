@@ -1,0 +1,67 @@
+class Note < ApplicationRecord
+  include PgSearch
+  
+  belongs_to :user
+  # pg_search_scope :search_for, against: %i(title tags mentions body)
+
+  # pg_search_scope :search_content_for, against: :body, using: { tsearch: { any_word: true } }
+
+  # pg_search_scope :search_full_text, against: {
+  #   title:   'A',
+  #   tags: 'B',
+  #   mentions: 'C',
+  #   body: 'D'
+  # } 
+end
+
+class AddIndexes < ActiveRecord::Migration[6.1]
+  def change
+    add_index :notes, :tags
+    add_index :notes, :mentions
+    add_index :notes, :body
+    add_index :notes, :title
+  end
+end
+
+
+class CreateNotes < ActiveRecord::Migration[6.1]
+  def change
+    create_table :notes do |t|
+      t.string     :title 
+      t.string     :tags, array: true, default: []
+      t.string     :mentions, array: true, default: []
+      t.string     :body
+      t.references :user, index: true, foreign_key: true
+
+      t.timestamps null: false
+    end
+  end
+end
+
+class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :notes
+  
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+end
+
+class CreatePosts < ActiveRecord::Migration[6.1]
+  def change
+    create_table :posts do |t|
+      t.string     :title
+      t.text       :body
+      t.references :user, null: false, index: true, foreign_key: true
+      t.string     :tags, array: true, default: []
+      t.string     :mentions, array: true, default: []
+
+      t.timestamps
+    end
+    
+    add_index :notes, :tags
+    add_index :notes, :mentions
+    add_index :notes, :body
+    add_index :notes, :title
+  end
+end

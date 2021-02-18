@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_012020) do
+ActiveRecord::Schema.define(version: 2021_02_18_025119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "notes", force: :cascade do |t|
     t.string "title"
+    t.text "body"
+    t.bigint "user_id", null: false
     t.string "tags", default: [], array: true
     t.string "mentions", default: [], array: true
-    t.string "body"
-    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["body"], name: "index_notes_on_body"
