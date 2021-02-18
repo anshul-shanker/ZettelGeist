@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 gem 'pg_search'
-
+gem 'pry', '~> 0.13.1'
 # CREATE ERD FROM Model 
 # https://github.com/voormedia/rails-erd
 gem 'rails-erd', group: :development
