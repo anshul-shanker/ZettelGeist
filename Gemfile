@@ -24,10 +24,12 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-# gem 'pg_search'
 
-# TODO: CREATE ERD FROM Model 
+gem 'pg_search'
+
+# CREATE ERD FROM Model 
 # https://github.com/voormedia/rails-erd
+gem 'rails-erd', group: :development
 
 # Authentication
 gem 'devise'
