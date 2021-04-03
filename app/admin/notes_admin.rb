@@ -37,7 +37,7 @@ Trestle.resource(:notes) do
     column :body
     column :user
     column :tags, format: :tags
-    column :mentions
+    column :mentions, format: :tags
     column :created_at
     column :updated_at
 
@@ -48,10 +48,11 @@ Trestle.resource(:notes) do
   #
   form do |note|
     text_field :title
-    text_field :body
+    editor :body
     text_field :tags, multiple: true, clickable: true
     text_field :mentions, multiple: true # Currently not working!
     hidden_field(:user_id,  :value => current_user.id)
+    # editor :content
   end
 
   # By default, all parameters passed to the update and create actions will be

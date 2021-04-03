@@ -35,6 +35,7 @@ gem 'rails-erd', group: :development
 gem 'trestle'
 gem 'trestle-auth'
 gem 'trestle-search'
+gem 'trestle-simplemde'
 
 # Authentication
 gem 'devise'
