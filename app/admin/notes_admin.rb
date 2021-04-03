@@ -1,7 +1,12 @@
+# https://github.com/TrestleAdmin/trestle/issues/205
 Trestle.resource(:notes) do
   collection do
-    # Set the default order when manual sorting is not applied
-    Note.order(updated_at: :desc)
+    # Fetch notes only for current user and set the default order when manual sorting is not applied
+    Note.notes_by_user(current_user).order(updated_at: :desc)
+  end
+
+  search do |query|
+    query ? collection.pg_search(query) : collection
   end
 
   return_to do
@@ -19,24 +24,33 @@ Trestle.resource(:notes) do
   # Customize the table columns shown on the index view.
     scopes do
       scope :notes_by_user, -> { Note.notes_by_user(current_user) }, default: true, label: "All"
+      
+      # scope :notes_not_by_user, -> { Note.notes_not_by_user(current_user) }, label: "Notes by others"
       # scope :year_1900_1949, -> { Movie.between(1900, 1949) }, label: "1900-1949"
       # scope :published
       # scope :drafts, -> { Note.unpublished }
     end
 
-  # table do
-  #   column :title
-  #   # column :updated_at, sort: s{ default: true, default_order: desc }, align: :center
-  #   actions
-  # end
+  # index view
+  table do
+    column :title
+    column :body
+    column :user
+    column :tags, format: :tags
+    column :mentions
+    column :created_at
+    column :updated_at
+
+    actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #
   form do |note|
     text_field :title
     text_field :body
-    text_field :tags
-    text_field :mentions # Currently not working!
+    text_field :tags, multiple: true, clickable: true
+    text_field :mentions, multiple: true # Currently not working!
     hidden_field(:user_id,  :value => current_user.id)
   end
 
