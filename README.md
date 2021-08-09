@@ -1,24 +1,26 @@
 # ZettelGeist
+
 A handy web-application for creating and maintaining notes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Ruby version:
 
-Things you may want to cover:
+  - `ruby 3.0.0p0`
 
-* Ruby version
+- Rails version:
 
-* System dependencies
+  - `Rails 6.1.1`
 
-* Configuration
+- System dependencies:
 
-* Database creation
+  - PostgreSQL `postgres (PostgreSQL) 13.1`
 
-* Database initialization
+- Steps to run the Application:
 
-* How to run the test suite
+  - `bundle install`
+  - `rails db:migrate`
+  - `rails server`
+  - `localhost:3000`
 
-* Services (job queues, cache servers, search engines, etc.)
+- Database design:
 
-* Deployment instructions
-
+  ![ERD](./db-erd.png)
