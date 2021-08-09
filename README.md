@@ -4,7 +4,7 @@ A handy web-application for creating and maintaining notes
 
 - Ruby version:
 
-  - `ruby 3.0.0p0`
+  - ```ruby 3.0.0p0```
 
 - Rails version:
 
