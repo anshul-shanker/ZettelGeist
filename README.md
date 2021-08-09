@@ -21,6 +21,6 @@ A handy web-application for creating and maintaining notes
   - `rails server`
   - `localhost:3000`
 
-- Database design:
+### Database design:
   <img width="388" alt="zettle geist db-model" src="https://user-images.githubusercontent.com/13991637/128770404-1865a22d-a034-48f0-b19b-bc1e972d191e.png">
 
