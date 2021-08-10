@@ -31,6 +31,12 @@ gem 'pry', '~> 0.13.1'
 # https://github.com/voormedia/rails-erd
 gem 'rails-erd', group: :development
 
+# TRESTLE
+gem 'trestle'
+gem 'trestle-auth'
+gem 'trestle-search'
+gem 'trestle-simplemde'
+
 # Authentication
 gem 'devise'
 

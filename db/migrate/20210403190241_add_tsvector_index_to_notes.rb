@@ -1,4 +1,4 @@
-class AddTsvvectorIndexToNotes < ActiveRecord::Migration[6.1]
+class AddTsvectorIndexToNotes < ActiveRecord::Migration[6.1]
   def change
     add_column :notes, :tsv, :tsvector
     add_index :notes, :tsv, using: 'gin'
@@ -10,6 +10,10 @@ class AddTsvvectorIndexToNotes < ActiveRecord::Migration[6.1]
           -- The tsvector_update_trigger can't be used for array columns, instead we create a custom function based on the code sample from the postgresql search features page.
           -- Using an array_to_string to convert the array elements to text.
 
+
+          -- TODO look into ranking
+          -- https://www.postgresql.org/docs/9.1/textsearch-controls.html
+          
         CREATE FUNCTION update_tsv() RETURNS trigger AS $$
         BEGIN
           new.tsv :=
@@ -32,7 +36,7 @@ class AddTsvvectorIndexToNotes < ActiveRecord::Migration[6.1]
       
       dir.down do 
         execute <<-SQL
-          DROP TRIGGER IF EXISTS tsvectorupdate
+          DROP TRIGGER tsvectorupdate
           ON store_items;
           DROP FUNCTION update_tsv();
         SQL
