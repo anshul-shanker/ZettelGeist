@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_03_190241) do
+ActiveRecord::Schema.define(version: 2021_08_09_215403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,16 +19,30 @@ ActiveRecord::Schema.define(version: 2021_04_03_190241) do
     t.string "title"
     t.text "body"
     t.bigint "user_id", null: false
-    t.string "tags", default: [], array: true
     t.string "mentions", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.tsvector "tsv"
     t.index ["body"], name: "index_notes_on_body"
     t.index ["mentions"], name: "index_notes_on_mentions"
-    t.index ["tags"], name: "index_notes_on_tags"
     t.index ["title"], name: "index_notes_on_title"
     t.index ["tsv"], name: "index_notes_on_tsv", using: :gin
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "notes_tags", id: false, force: :cascade do |t|
+    t.bigint "note_id"
+    t.bigint "tag_id"
+    t.index ["note_id"], name: "index_notes_tags_on_note_id"
+    t.index ["tag_id"], name: "index_notes_tags_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
