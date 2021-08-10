@@ -35,6 +35,10 @@ gem 'trestle-auth'
 gem 'trestle-search'
 gem 'trestle-simplemde'
 
+
+# Heroku
+gem 'mimemagic', '~> 0.3.10'
+
 # Authentication
 gem 'devise'
 
