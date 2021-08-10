@@ -175,13 +175,7 @@ Trestle.configure do |config|
   # Specify the redirect location after a successful login.
   # Defaults to the main Trestle admin path.
   #
-  # config.auth.redirect_on_login = -> {
-  #   if admin = Trestle.lookup(Trestle.config.auth.user_admin)
-  #     admin.instance_path(current_user)
-  #   else
-  #     Trestle.config.path
-  #   end
-  # }
+  config.auth.redirect_on_login = -> { "/notes" }
 
   # Specify the redirect location after logging out.
   # Defaults to the trestle-auth new login path.
