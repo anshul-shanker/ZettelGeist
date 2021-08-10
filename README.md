@@ -24,3 +24,7 @@ A handy web-application for creating and maintaining notes
   - ZettelGeist uses a gem called Trestle to assist in the frontend aspects of the application
   - https://github.com/TrestleAdmin
 
+## User Authentication
+
+  - Devise Gem used to manage user authentication
+
