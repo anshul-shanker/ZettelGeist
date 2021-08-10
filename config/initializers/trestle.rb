@@ -133,15 +133,12 @@ Trestle.configure do |config|
   config.auth.backend = :devise
 
   # Specify the Devise/Warden mapping/scope.
-  #
   config.auth.warden.scope = :user
 
   # Specify the user class to be used by trestle-auth.
-  #
   config.auth.user_class = -> { User }
 
   # Specify the Trestle admin for managing the current user (My Account).
-  #
   config.auth.user_admin = -> { :"auth/account" }
 
   # Customize the rendering of user avatars. Can be disabled by setting to false.
