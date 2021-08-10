@@ -17,7 +17,7 @@ A handy web-application for creating and maintaining notes
 
 ## Database design:
   
-  [erd.pdf](https://github.com/Ashanker90/ZettelGeist/files/6958344/erd.pdf)
+  ![zettle_geist_erd](https://user-images.githubusercontent.com/13991637/128795991-5758c09f-4d0c-4ab9-922b-79f6613dcccf.png)
   
 ## Frontend Logic
   
