@@ -25,10 +25,9 @@ class NotesController < ApplicationController
     note[:user_id] = 4
     note[:tags] = note[:tags].split(" ")
     note[:mentions] = note[:mentions].split(" ")
-    
-    binding.pry
+
     @note = Note.new(note)
-    binding.pry
+
     respond_to do |format|
       if @note.save
         format.html { redirect_to @note, notice: "Note was successfully created." }

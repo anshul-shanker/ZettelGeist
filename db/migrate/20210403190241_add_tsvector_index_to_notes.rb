@@ -10,20 +10,15 @@ class AddTsvectorIndexToNotes < ActiveRecord::Migration[6.1]
           -- The tsvector_update_trigger can't be used for array columns, instead we create a custom function based on the code sample from the postgresql search features page.
           -- Using an array_to_string to convert the array elements to text.
 
-
-          -- TODO look into ranking
-          -- https://www.postgresql.org/docs/9.1/textsearch-controls.html
-          
         CREATE FUNCTION update_tsv() RETURNS trigger AS $$
         BEGIN
           new.tsv :=
             to_tsvector('pg_catalog.simple', coalesce(new.title,'')) ||
             to_tsvector('pg_catalog.simple', coalesce(new.body,'')) ||
-            to_tsvector('pg_catalog.simple', coalesce(array_to_string(new.mentions, ' '),'')) ||
-            to_tsvector('pg_catalog.simple', coalesce(array_to_string(new.tags, ' '),''));
+            to_tsvector('pg_catalog.simple', coalesce(array_to_string(new.mentions, ' '),''));
           return new;
         END
-        
+
         $$ LANGUAGE plpgsql;
 
           CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON notes
@@ -33,8 +28,8 @@ class AddTsvectorIndexToNotes < ActiveRecord::Migration[6.1]
         # Trigger re-index on existing notes
         execute("UPDATE notes SET id = id")
       end
-      
-      dir.down do 
+
+      dir.down do
         execute <<-SQL
           DROP TRIGGER tsvectorupdate
           ON store_items;

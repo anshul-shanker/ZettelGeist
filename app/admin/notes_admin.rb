@@ -1,4 +1,3 @@
-# https://github.com/TrestleAdmin/trestle/issues/205
 Trestle.resource(:notes) do
   collection do
     # Fetch notes only for current user and set the default order when manual sorting is not applied
@@ -13,30 +12,26 @@ Trestle.resource(:notes) do
     admin.path(:index)
   end
 
-  # https://github.com/TrestleAdmin/trestle/wiki/How-To:-Add-Custom-Action
-  # This can be used for filtering adn to add tags route as a sidebar
-
   menu do
-    item :notes, icon: "fa fa-star"
-    # item :tags, icon: "tags"
+    item :notes, icon: "fa fa-book"
   end
 
-  # Customize the table columns shown on the index view.
+  # Customize the table on the index view.
     scopes do
       scope :notes_by_user, -> { Note.notes_by_user(current_user) }, default: true, label: "All"
-      
-      # scope :notes_not_by_user, -> { Note.notes_not_by_user(current_user) }, label: "Notes by others"
-      # scope :year_1900_1949, -> { Movie.between(1900, 1949) }, label: "1900-1949"
-      # scope :published
-      # scope :drafts, -> { Note.unpublished }
+
+      Tag.all.each do |tag|
+        scope tag.name, -> { tag.notes }, label: "#{tag.name}"
+      end
     end
 
   # index view
   table do
     column :title
     column :body
-    column :user
-    column :tags, format: :tags
+    column :tags, format: :tags, class: "hidden-xs" do |note|
+      note.tags.map(&:name)
+    end
     column :mentions, format: :tags
     column :created_at
     column :updated_at
@@ -45,24 +40,14 @@ Trestle.resource(:notes) do
   end
 
   # Customize the form fields shown on the new/edit views.
-  #
   form do |note|
     text_field :title
     editor :body
-    text_field :tags, multiple: true, clickable: true
+
+    # text_field :tags, multiple: true, clickable: true
+    select :tag_ids, Note::Tag.alphabetical, { label: "Tags" }, multiple: true
+
     text_field :mentions, multiple: true # Currently not working!
     hidden_field(:user_id,  :value => current_user.id)
-    # editor :content
   end
-
-  # By default, all parameters passed to the update and create actions will be
-  # permitted. If you do not have full trust in your users, you should explicitly
-  # define the list of permitted parameters.
-  #
-  # For further information, see the Rails documentation on Strong Parameters:
-  #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
-  #
-  # params do |params|
-  #   params.require(:note).permit(:name, ...)
-  # end
 end

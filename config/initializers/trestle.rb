@@ -3,7 +3,7 @@ Trestle.configure do |config|
   #
   # Set the page title shown in the main header within the admin.
   #
-  config.site_title = "Zettle Geist"
+  config.site_title = "ZettelGeist"
 
   # Specify a custom image to be used in place of the site title for mobile and
   # expanded/desktop navigation. These images should be placed within your
@@ -22,7 +22,7 @@ Trestle.configure do |config|
   # Set the text shown in the page footer within the admin.
   # Defaults to 'Powered by Trestle'.
   #
-  # config.footer = "Powered by Trestle"
+  config.footer = "Web app by SSL, Loyola"
 
   # Sets the default precision for timestamps (either :minutes or :seconds).
   # Defaults to :minutes.
@@ -33,7 +33,7 @@ Trestle.configure do |config|
   #
   # Set the path at which to mount the Trestle admin. Defaults to /admin.
   #
-  # config.path = "/admin"
+  config.path = "/"
 
   # Toggle whether Trestle should automatically mount the admin within your
   # Rails application's routes. Defaults to true.
@@ -133,15 +133,12 @@ Trestle.configure do |config|
   config.auth.backend = :devise
 
   # Specify the Devise/Warden mapping/scope.
-  #
   config.auth.warden.scope = :user
 
   # Specify the user class to be used by trestle-auth.
-  #
   config.auth.user_class = -> { User }
 
   # Specify the Trestle admin for managing the current user (My Account).
-  #
   config.auth.user_admin = -> { :"auth/account" }
 
   # Customize the rendering of user avatars. Can be disabled by setting to false.
